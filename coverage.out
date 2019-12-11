@@ -1,0 +1,11 @@
+mode: set
+github.com/Ulbora/go-sessions/session.go:20.40,21.19 1 1
+github.com/Ulbora/go-sessions/session.go:25.2,25.18 1 1
+github.com/Ulbora/go-sessions/session.go:29.2,29.24 1 1
+github.com/Ulbora/go-sessions/session.go:33.2,33.20 1 1
+github.com/Ulbora/go-sessions/session.go:21.19,24.3 2 1
+github.com/Ulbora/go-sessions/session.go:25.18,28.3 2 1
+github.com/Ulbora/go-sessions/session.go:29.24,32.3 2 1
+github.com/Ulbora/go-sessions/session.go:33.20,35.3 1 1
+github.com/Ulbora/go-sessions/session.go:39.42,46.2 2 1
+github.com/Ulbora/go-sessions/session.go:49.70,51.2 1 1
