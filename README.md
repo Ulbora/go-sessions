@@ -12,7 +12,6 @@ $ go get github.com/Ulbora/go-sessions
 
 ```
 
-
 # Usage
 
 ## Initialize and use
@@ -31,7 +30,8 @@ $ go get github.com/Ulbora/go-sessions
 	    if err != nil {
 		    http.Error(w, err.Error(), http.StatusInternalServerError)
 	    }
-        //get already set session value
+
+        //get already set session value        
 	    user := session.Values["username"]
 
         //sets new session values
