@@ -1,6 +1,8 @@
 go-sessions 
 ==============
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/Ulbora/go-sessions)](https://goreportcard.com/report/github.com/Ulbora/go-sessions)
+
 A Go wrapper for gorilla sessions
 http://www.gorillatoolkit.org/pkg/sessions
 
