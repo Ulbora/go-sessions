@@ -24,10 +24,10 @@ $ go get github.com/Ulbora/go-sessions
 	    s.MaxAge = 5 * 60
 	    s.Name = "user-session-test"
 	    s.SessionKey = "554dfgdffdd11dfgf1ff1f"
+        s.InitSessionStore()
     }
 
-    func handleSomething(r http.ResponseWriter, w *http.Request) {
-	    s.InitSessionStore()
+    func handleSomething(r http.ResponseWriter, w *http.Request) {	    
         session, err := s.GetSession(r)
 	    if err != nil {
 		    http.Error(w, err.Error(), http.StatusInternalServerError)
