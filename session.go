@@ -10,7 +10,9 @@ import (
 //GoSession a GoSession
 type GoSession struct {
 	store      *gs.CookieStore
+	Path       string
 	MaxAge     int
+	HTTPOnly   bool
 	Secure     bool
 	Name       string
 	SessionKey string
@@ -18,6 +20,10 @@ type GoSession struct {
 
 //InitSessionStore initialize session store
 func (s *GoSession) InitSessionStore() {
+	if s.Path == "" {
+		log.Println("using defalut path of /")
+		s.Path = "/"
+	}
 	if s.MaxAge == 0 {
 		log.Println("using defalut max age")
 		s.MaxAge = 3600 //default 3600 seconds --  1 hour
@@ -39,8 +45,9 @@ func (s *GoSession) InitSessionStore() {
 func (s *GoSession) createSessionStore() {
 	s.store = gs.NewCookieStore([]byte(s.SessionKey))
 	s.store.Options = &gs.Options{
+		Path:     s.Path,
 		MaxAge:   s.MaxAge,
-		HttpOnly: true,
+		HttpOnly: s.HTTPOnly,
 		Secure:   s.Secure,
 	}
 }
