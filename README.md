@@ -20,15 +20,16 @@ $ go get github.com/Ulbora/go-sessions
 ```
     import usess github.com/Ulbora/go-sessions
     var s usess.Session
+    var store *sessions.CookieStore
     func main() {
 	    s.MaxAge = 5 * 60
 	    s.Name = "user-session-test"
 	    s.SessionKey = "554dfgdffdd11dfgf1ff1f"
+        store = s.InitSessionStore()
     }
 
-    func handleSomething(r http.ResponseWriter, w *http.Request) {
-	    s.InitSessionStore()
-        session, err := s.GetSession(r)
+    func handleSomething(r http.ResponseWriter, w *http.Request) {	    
+        session, err := store.Get(r, s.Name)
 	    if err != nil {
 		    http.Error(w, err.Error(), http.StatusInternalServerError)
 	    }

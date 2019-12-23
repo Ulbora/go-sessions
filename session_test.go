@@ -5,25 +5,26 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
+
+	"github.com/gorilla/sessions"
 )
 
 var s GoSession
+var store *sessions.CookieStore
 
 func TestSession_CreateSessionStore(t *testing.T) {
 	s.MaxAge = 5 * 60
 	s.Name = "user-session-test"
 	s.SessionKey = "554dfgdffdd11dfgf1ff1f"
-	s.InitSessionStore()
-	if s.store == nil {
+	store = s.InitSessionStore()
+	if store == nil {
 		t.Fail()
 	}
 }
 func TestSession(t *testing.T) {
-	//var r = new(http.Request)
 	r, _ := http.NewRequest("GET", "/test", nil)
-	//var w http.ResponseWriter
 	w := httptest.NewRecorder()
-	session, err := s.GetSession(r)
+	session, err := store.Get(r, s.Name)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
@@ -41,8 +42,8 @@ func TestSession(t *testing.T) {
 
 func TestSession_CreateSessionStoreOptions(t *testing.T) {
 	var so GoSession
-	so.InitSessionStore()
-	if so.store == nil || so.store.Options.MaxAge != 3600 || so.Name != "user-session" {
+	store2 := so.InitSessionStore()
+	if store2 == nil || store2.Options.MaxAge != 3600 || so.Name != "user-session" {
 		t.Fail()
 	}
 }

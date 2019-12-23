@@ -2,14 +2,12 @@ package gosession
 
 import (
 	"log"
-	"net/http"
 
 	gs "github.com/gorilla/sessions"
 )
 
 //GoSession a GoSession
 type GoSession struct {
-	store      *gs.CookieStore
 	Path       string
 	MaxAge     int
 	HTTPOnly   bool
@@ -19,7 +17,7 @@ type GoSession struct {
 }
 
 //InitSessionStore initialize session store
-func (s *GoSession) InitSessionStore() {
+func (s *GoSession) InitSessionStore() *gs.CookieStore {
 	if s.Path == "" {
 		log.Println("using defalut path of /")
 		s.Path = "/"
@@ -36,23 +34,18 @@ func (s *GoSession) InitSessionStore() {
 		log.Println("using defalut sesstion key")
 		s.SessionKey = "554dfgdffdd11dfgf1ff1f" // default key
 	}
-	if s.store == nil {
-		s.createSessionStore()
-	}
+	store := s.createSessionStore()
+	return store
 }
 
 // CreateSessionStore creates a sesstion
-func (s *GoSession) createSessionStore() {
-	s.store = gs.NewCookieStore([]byte(s.SessionKey))
-	s.store.Options = &gs.Options{
+func (s *GoSession) createSessionStore() *gs.CookieStore {
+	store := gs.NewCookieStore([]byte(s.SessionKey))
+	store.Options = &gs.Options{
 		Path:     s.Path,
 		MaxAge:   s.MaxAge,
 		HttpOnly: s.HTTPOnly,
 		Secure:   s.Secure,
 	}
-}
-
-//GetSession get session
-func (s *GoSession) GetSession(r *http.Request) (*gs.Session, error) {
-	return s.store.Get(r, s.Name)
+	return store
 }
